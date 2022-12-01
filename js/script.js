@@ -19,7 +19,11 @@ Le validazioni e i controlli possiamo farli anche in un secondo momento. */
 const gridContainer = document.querySelector("div.grid");
 console.log(gridContainer);
 
-
+//Funzione per un numero randomico.
+function getRandomNumber(numMax, numMin) {
+    const randomNumber = Math.floor(Math.random() * (numMax - numMin + 1)) + numMin;
+    return randomNumber;
+}
 
 const play = document.getElementById("play");
 
@@ -27,6 +31,26 @@ play. addEventListener ("click", function () {
     console.log("click"); 
 
     gridContainer.innerHTML = "";
+        
+
+
+        gameOver = true;
+         /* preparo un contenitore vuoto (array) */
+        let bombs = [];
+        let score = 0;
+        console.log(score);
+        /* controllo se il numero è già presente nel contenitore */ 
+        while(bombs.length < 16){
+            let generateNewBomb = getRandomNumber(1, 100);/* invoco la funzione per generare un numero casuale (tra 1 e 100) */ 
+            
+            if(!bombs.includes(generateNewBomb)){
+
+            bombs.push(generateNewBomb); /* aggiungo il numero di bombe al contenitore  */
+            
+            }  
+        }
+        console.log(bombs);
+
 
     for (let i = 1; i <= 100; i++) {
 
@@ -34,11 +58,27 @@ play. addEventListener ("click", function () {
     
         newSquare.classList.add("square");
     
-        newSquare.innerHTML = (i);
+        /* newSquare.innerHTML = (i); */
 
             newSquare. addEventListener ("click", function () {
 
-                newSquare.classList.toggle ('clicked')
+               /*  newSquare.classList.toggle ('clicked') */
+
+                if(gameOver == true){
+                    if(bombs.includes(i)){
+                        gameOver = false;
+                        newSquare.classList.add("bomb");
+                        score ++;
+                        console.log("you lose!");
+                    } else {
+                        newSquare.classList.add("clicked");
+                        if(score === 84){
+                            gameOver = false;
+                            console.log("yes!");
+                        }
+                    }
+                }
+
             });
         
         gridContainer.appendChild(newSquare);
@@ -48,28 +88,6 @@ play. addEventListener ("click", function () {
 });
 
 
-/* preparo un contenitore vuoto (array) */
-let bombs = [];
-
-//Funzione per un numero randomico.
-function getRandomNumber(numMax, numMin) {
-    const randomNumber = Math.floor(Math.random() * (numMax - numMin + 1)) + numMin;
-    return randomNumber;
-}
-
-
-/* controllo se il numero è già presente nel contenitore */ 
-
-while(bombs.length < 16){
-
-    let generateNewBomb = getRandomNumber(1, 100); /* invoco la funzione per generare un numero casuale (tra 1 e 100) */ 
-
-    if(!bombs.includes(generateNewBomb)){
-        
-        bombs.push(generateNewBomb); /* aggiungo il numero di bombe al contenitore  */
-    }  
-}
-console.log(bombs)
 
 
 

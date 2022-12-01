@@ -48,5 +48,12 @@
     }
 
     .clicked {
-        background-color: red;
+        background-color: #fff;
+    }
+
+    .bomb {
+        background-image: url(../img/bomb.png);
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
